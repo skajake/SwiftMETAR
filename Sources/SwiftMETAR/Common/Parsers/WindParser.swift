@@ -9,7 +9,11 @@ let variable = "VRB"
 
 func parseWind(_ parts: inout Array<String.SubSequence>) throws -> Wind? {
     guard !parts.isEmpty else { return nil }
-    let dirAndSpeed = String(parts[0])
+    var dirAndSpeed = String(parts[0])
+    
+    if dirAndSpeed.starts(with: "VRB/") {
+        dirAndSpeed = dirAndSpeed.replacingOccurrences(of: "VRB/", with: "VRB")
+    }
     
     if dirAndSpeed == "00000KT" {
         parts.removeFirst()

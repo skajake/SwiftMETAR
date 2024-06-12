@@ -7,6 +7,13 @@ import Nimble
 class WindSpec: QuickSpec {
     override func spec() {
         describe("winds") {
+            
+            it("parses winds < 10 knots") {
+                let string = #"KPIA 121654Z COR VRB/03KT 10SM CLR 29/18 A2994 RMK AO2 SLP134 T02890178"#
+                let wind = try! METAR.from(string: string).wind
+                expect(wind).to(equal(.variable(speed: .knots(3))))
+            }
+            
             it("parses winds < 10 knots") {
                 let string = #"METAR KOKC 011955Z AUTO 05008KT 3/4SM R17L/2600FT +TSRA BR OVC010CB 18/16 A2992 RMK AO2 TSB25 TS OHD MOV E SLP132"#
                 let wind = try! METAR.from(string: string).wind
